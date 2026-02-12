@@ -1,0 +1,18 @@
+services:
+  camping-bot:
+    build: .
+    container_name: camping_reservation_bot
+    # 월 1회 실행 후 종료 — 자동 재시작 비활성화
+    restart: "no"
+    # 모든 민감 정보는 .env 파일에서 주입
+    env_file:
+      - .env
+    volumes:
+      # 스크린샷을 호스트에 영구 저장 (실패 시 확인용)
+      - ./screenshots:/app/screenshots
+    # Chromium 공유 메모리 크래시 방지
+    ipc: host
+    shm_size: "1gb"
+    # Chromium 샌드박스에 필요한 syscall 허용
+    security_opt:
+      - seccomp:unconfined
