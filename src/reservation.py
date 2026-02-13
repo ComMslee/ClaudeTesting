@@ -191,13 +191,16 @@ class ReservationBot:
 
     # ─── Reservation attempt ──────────────────────────────────────────────────
 
-    async def attempt_reservation(self) -> Tuple[bool, str]:
+    async def attempt_reservation(self, dry_run: bool = False) -> Tuple[bool, str]:
         """
         Perform one full reservation attempt:
           1. Hard-reload the page (get fresh state at 10:00)
           2. Fill date, campsite, attendee count
-          3. Submit
+          3. Submit (skipped when dry_run=True)
           4. Detect result
+
+        dry_run=True: 폼 입력까지만 수행하고 제출 버튼을 누르지 않음.
+                      페이지 구조 확인 및 선택자 검증 목적.
 
         Returns (success, message).
         """
@@ -206,12 +209,14 @@ class ReservationBot:
             await self._page.wait_for_load_state("networkidle", timeout=10_000)
 
             # Fill date field if present
-            if await self._page.locator(SELECTORS["camping_date"]).count() > 0:
+            date_found = await self._page.locator(SELECTORS["camping_date"]).count() > 0
+            if date_found:
                 await self._page.fill(SELECTORS["camping_date"], self.config.camping_date)
                 await asyncio.sleep(0.2)
 
             # Select campsite if a <select> is present
-            if await self._page.locator(SELECTORS["campsite_sel"]).count() > 0:
+            site_found = await self._page.locator(SELECTORS["campsite_sel"]).count() > 0
+            if site_found:
                 await self._page.select_option(
                     SELECTORS["campsite_sel"],
                     label=self.config.campsite_name,
@@ -219,14 +224,34 @@ class ReservationBot:
                 await asyncio.sleep(0.3)
 
             # Fill attendee count if the input is present
-            if await self._page.locator(SELECTORS["attendee_cnt"]).count() > 0:
+            cnt_found = await self._page.locator(SELECTORS["attendee_cnt"]).count() > 0
+            if cnt_found:
                 await self._page.fill(
                     SELECTORS["attendee_cnt"],
                     str(self.config.attendee_count),
                 )
                 await asyncio.sleep(0.2)
 
-            # Submit
+            # ── Dry-run: 폼 입력 확인 후 제출 없이 반환 ──────────────────────
+            if dry_run:
+                btn_found = await self._page.locator(SELECTORS["apply_btn"]).count() > 0
+                fields = {
+                    "날짜 필드": date_found,
+                    "구역 선택": site_found,
+                    "인원 입력": cnt_found,
+                    "제출 버튼": btn_found,
+                }
+                found = [name for name, ok in fields.items() if ok]
+                missing = [name for name, ok in fields.items() if not ok]
+                msg = (
+                    f"[DRY-RUN] 제출 생략\n"
+                    f"  감지된 필드: {', '.join(found) if found else '없음'}\n"
+                    f"  미감지 필드: {', '.join(missing) if missing else '없음'}"
+                )
+                logger.info(msg)
+                return True, msg
+
+            # ── 실제 제출 ─────────────────────────────────────────────────────
             await self._page.click(SELECTORS["apply_btn"])
             await self._page.wait_for_load_state("networkidle", timeout=15_000)
 
