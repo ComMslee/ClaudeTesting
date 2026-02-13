@@ -1,0 +1,86 @@
+캠핑 예약 봇 테스트 결과 리포트
+실행: 2026-02-12 22:31:16 KST
+============================================================
+test_import_config (__main__.TestImports.test_import_config) ... ok
+[92m  PASS[0m
+test_import_main (__main__.TestImports.test_import_main) ... ok
+[92m  PASS[0m
+test_import_notifier (__main__.TestImports.test_import_notifier) ... ok
+[92m  PASS[0m
+test_import_reservation (__main__.TestImports.test_import_reservation) ... ok
+[92m  PASS[0m
+test_config_is_immutable (__main__.TestConfig.test_config_is_immutable)
+frozen=True 데이터클래스이므로 속성 변경 불가. ... ok
+[92m  PASS[0m
+test_default_values (__main__.TestConfig.test_default_values)
+선택 변수는 기본값이 적용되어야 함. ... ok
+[92m  PASS[0m
+test_load_success_with_all_required (__main__.TestConfig.test_load_success_with_all_required)
+필수 변수가 모두 있으면 Config 객체 반환. ... ok
+[92m  PASS[0m
+test_missing_required_raises (__main__.TestConfig.test_missing_required_raises)
+필수 변수 누락 시 ValueError 발생. ... ok
+[92m  PASS[0m
+test_type_casting (__main__.TestConfig.test_type_casting)
+숫자/불리언 변수가 올바른 타입으로 변환되어야 함. ... ok
+[92m  PASS[0m
+test_december_rolls_to_january (__main__.TestTimingLogic.test_december_rolls_to_january)
+12월이면 다음 해 1월 1일 10:00 반환. ... ok
+[92m  PASS[0m
+test_first_of_month_after_10am (__main__.TestTimingLogic.test_first_of_month_after_10am)
+1일 오전 10시 이후면 다음 달 1일 10:00 반환. ... ok
+[92m  PASS[0m
+test_first_of_month_before_10am (__main__.TestTimingLogic.test_first_of_month_before_10am)
+1일 오전 10시 이전이면 오늘 10:00 반환. ... ok
+[92m  PASS[0m
+test_mid_month_returns_next_first (__main__.TestTimingLogic.test_mid_month_returns_next_first)
+월 중간이면 다음 달 1일 10:00 반환. ... ok
+[92m  PASS[0m
+test_sleep_until_near_future (__main__.TestTimingLogic.test_sleep_until_near_future)
+0.1초 후 시각에 sleep_until 호출 시 ~0.1초 대기. ... ok
+[92m  PASS[0m
+test_sleep_until_past_returns_immediately (__main__.TestTimingLogic.test_sleep_until_past_returns_immediately)
+과거 시각에 sleep_until 호출 시 즉시 반환. ... ok
+[92m  PASS[0m
+test_init (__main__.TestTelegramNotifier.test_init) ... ok
+[92m  PASS[0m
+test_notify_failure_with_screenshot_calls_send_photo (__main__.TestTelegramNotifier.test_notify_failure_with_screenshot_calls_send_photo)
+스크린샷 경로 있으면 send_photo 사용. ... ok
+[92m  PASS[0m
+test_notify_failure_without_screenshot (__main__.TestTelegramNotifier.test_notify_failure_without_screenshot)
+스크린샷 없이 notify_failure 호출 시 send_message 사용. ... ok
+[92m  PASS[0m
+test_notify_success_calls_send_message (__main__.TestTelegramNotifier.test_notify_success_calls_send_message)
+notify_success가 send_message를 호출하는지 확인. ... ok
+[92m  PASS[0m
+test_send_message_success (__main__.TestTelegramNotifier.test_send_message_success)
+send_message가 True를 반환하고 예외 없이 종료. ... ok
+[92m  PASS[0m
+test_send_message_telegram_error_returns_false (__main__.TestTelegramNotifier.test_send_message_telegram_error_returns_false)
+TelegramError 발생 시 예외 없이 False 반환. ... ok
+[92m  PASS[0m
+test_send_photo_fallback_when_file_missing (__main__.TestTelegramNotifier.test_send_photo_fallback_when_file_missing)
+스크린샷 파일 없으면 send_message로 폴백. ... ok
+[92m  PASS[0m
+test_bot_has_required_methods (__main__.TestReservationBotStructure.test_bot_has_required_methods)
+ReservationBot에 필수 메서드가 정의되어 있어야 함. ... ok
+[92m  PASS[0m
+test_bot_init (__main__.TestReservationBotStructure.test_bot_init)
+ReservationBot 인스턴스 생성 시 config가 설정되어야 함. ... ok
+[92m  PASS[0m
+test_keyword_lists_not_empty (__main__.TestReservationBotStructure.test_keyword_lists_not_empty)
+SUCCESS/FAILURE 키워드 리스트가 비어있지 않아야 함. ... ok
+[92m  PASS[0m
+test_selectors_all_keys_present (__main__.TestReservationBotStructure.test_selectors_all_keys_present)
+SELECTORS 딕셔너리에 필수 키가 모두 있어야 함. ... ok
+[92m  PASS[0m
+test_urls_are_https (__main__.TestReservationBotStructure.test_urls_are_https)
+LOGIN_URL, RESERVATION_URL이 HTTPS이어야 함. ... ok
+[92m  PASS[0m
+
+----------------------------------------------------------------------
+Ran 27 tests in 1.845s
+
+OK
+============================================================
+합계: 27  통과: 27  실패: 0  오류: 0
