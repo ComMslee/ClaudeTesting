@@ -1,0 +1,18 @@
+캠핑 예약 봇 통합 테스트 결과
+실행: 2026-02-13 09:51:50 KST
+자격증명: 미설정
+Playwright: 사용가능
+============================================================
+test_01_login_success (__main__.TestIntegration.test_01_login_success)
+실제 자격증명으로 로그인 후 로그인 페이지가 아닌 다른 URL로 ... skipped 'SUWON_USERNAME / SUWON_PASSWORD 미설정 — .env 파일을 확인하세요.'
+test_02_reservation_page_loads (__main__.TestIntegration.test_02_reservation_page_loads)
+로그인 후 예약 페이지(campingApplySimple.do)가 정상 로드되는지 확인합니다. ... skipped 'SUWON_USERNAME / SUWON_PASSWORD 미설정 — .env 파일을 확인하세요.'
+test_03_dry_run_full_flow (__main__.TestIntegration.test_03_dry_run_full_flow)
+dry_run=True 로 attempt_reservation() 을 호출합니다. ... skipped 'SUWON_USERNAME / SUWON_PASSWORD 미설정 — .env 파일을 확인하세요.'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK (skipped=3)
+============================================================
+합계: 3  통과: 3  실패: 0  스킵: 3
