@@ -4,7 +4,10 @@ FROM mcr.microsoft.com/playwright/python:v1.49.0-noble
 
 WORKDIR /app
 
-# 의존성 레이어를 소스 코드와 분리하여 빌드 캐시 최적화
+# playwright-stealth가 pkg_resources(setuptools)를 사용하므로 먼저 설치
+RUN pip install --no-cache-dir setuptools
+
+# 나머지 의존성 레이어를 소스 코드와 분리하여 빌드 캐시 최적화
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
