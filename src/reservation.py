@@ -13,8 +13,6 @@ from playwright.async_api import (
     async_playwright,
 )
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
-from playwright_stealth import stealth_async
-
 from .config import Config
 
 logger = logging.getLogger(__name__)
@@ -113,7 +111,12 @@ class ReservationBot:
 
         self._page = await self._context.new_page()
         # Patch navigator.webdriver and CDP markers to help bypass WAF detection
-        await stealth_async(self._page)
+        await self._page.add_init_script("""
+            Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+            Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3]});
+            Object.defineProperty(navigator, 'languages', {get: () => ['ko-KR', 'ko', 'en-US', 'en']});
+            window.chrome = {runtime: {}, loadTimes: function(){}, csi: function(){}, app: {}};
+        """)
         logger.info("Browser ready with stealth settings applied.")
 
     async def _close_browser(self) -> None:
