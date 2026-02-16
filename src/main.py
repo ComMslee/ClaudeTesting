@@ -40,6 +40,11 @@ OPEN_HOUR = 10
 OPEN_MINUTE = 0
 OPEN_SECOND = 0
 
+# Sleep tuning
+COARSE_SLEEP_CHUNK_SECONDS = 1800   # 30-minute chunks for Phase 1
+PRECISION_THRESHOLD_SECONDS = 5     # switch to tight-loop for the final N seconds
+PRECISION_SLEEP_SECONDS = 0.01      # 10 ms tight-loop interval
+
 
 # ─── Timing utilities ─────────────────────────────────────────────────────────
 
@@ -77,23 +82,22 @@ async def sleep_until(target: datetime) -> None:
 
     logger.info(f"Waiting {total:.0f}s until {target.strftime('%Y-%m-%d %H:%M:%S %Z')}")
 
-    # Phase 1: coarse 30-min chunks
-    CHUNK = 1800  # 30 minutes
+    # Phase 1: coarse chunks (CPU-friendly for long waits)
     while True:
         remaining = (target - datetime.now(KST)).total_seconds()
-        if remaining <= 5:
+        if remaining <= PRECISION_THRESHOLD_SECONDS:
             break
-        chunk = min(CHUNK, remaining - 5)
+        chunk = min(COARSE_SLEEP_CHUNK_SECONDS, remaining - PRECISION_THRESHOLD_SECONDS)
         logger.debug(f"Coarse sleep {chunk:.0f}s  ({remaining:.0f}s remaining)")
         await asyncio.sleep(chunk)
 
-    # Phase 2: 10 ms precision loop
-    logger.info("Precision timing loop started (final 5 s)...")
+    # Phase 2: tight-loop for the final seconds (±10 ms accuracy)
+    logger.info(f"Precision timing loop started (final {PRECISION_THRESHOLD_SECONDS} s)...")
     while True:
         remaining = (target - datetime.now(KST)).total_seconds()
         if remaining <= 0:
             break
-        await asyncio.sleep(min(0.01, remaining))
+        await asyncio.sleep(min(PRECISION_SLEEP_SECONDS, remaining))
 
     logger.info(f"Target reached: {datetime.now(KST).strftime('%H:%M:%S.%f')}")
 
