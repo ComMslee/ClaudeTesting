@@ -1,19 +1,28 @@
 캠핑 예약 봇 테스트 결과 리포트
-실행: 2026-02-13 09:51:44 KST
+실행: 2026-02-16 21:30:30 KST
 ============================================================
 test_import_config (__main__.TestImports.test_import_config) ... ok
 [92m  PASS[0m
-test_import_main (__main__.TestImports.test_import_main) ... ok
-[92m  PASS[0m
-test_import_notifier (__main__.TestImports.test_import_notifier) ... ok
-[92m  PASS[0m
+test_import_main (__main__.TestImports.test_import_main) ... ERROR
+[91m  ERROR[0m
+test_import_notifier (__main__.TestImports.test_import_notifier) ... ERROR
+[91m  ERROR[0m
 test_import_reservation (__main__.TestImports.test_import_reservation) ... ok
+[92m  PASS[0m
+test_attendee_count_in_range_accepted (__main__.TestConfig.test_attendee_count_in_range_accepted)
+ATTENDEE_COUNT가 1~10 범위 내이면 정상 통과. ... ok
+[92m  PASS[0m
+test_attendee_count_out_of_range_raises (__main__.TestConfig.test_attendee_count_out_of_range_raises)
+ATTENDEE_COUNT가 1~10 범위 밖이면 ValueError 발생. ... ok
 [92m  PASS[0m
 test_config_is_immutable (__main__.TestConfig.test_config_is_immutable)
 frozen=True 데이터클래스이므로 속성 변경 불가. ... ok
 [92m  PASS[0m
 test_default_values (__main__.TestConfig.test_default_values)
 선택 변수는 기본값이 적용되어야 함. ... ok
+[92m  PASS[0m
+test_invalid_camping_date_format_raises (__main__.TestConfig.test_invalid_camping_date_format_raises)
+CAMPING_DATE가 YYYY-MM-DD 형식이 아니면 ValueError 발생. ... ok
 [92m  PASS[0m
 test_load_success_with_all_required (__main__.TestConfig.test_load_success_with_all_required)
 필수 변수가 모두 있으면 Config 객체 반환. ... ok
@@ -24,44 +33,47 @@ test_missing_required_raises (__main__.TestConfig.test_missing_required_raises)
 test_type_casting (__main__.TestConfig.test_type_casting)
 숫자/불리언 변수가 올바른 타입으로 변환되어야 함. ... ok
 [92m  PASS[0m
+test_valid_camping_date_accepted (__main__.TestConfig.test_valid_camping_date_accepted)
+유효한 YYYY-MM-DD 형식은 정상 통과. ... ok
+[92m  PASS[0m
 test_december_rolls_to_january (__main__.TestTimingLogic.test_december_rolls_to_january)
-12월이면 다음 해 1월 1일 10:00 반환. ... ok
-[92m  PASS[0m
+12월이면 다음 해 1월 1일 10:00 반환. ... ERROR
+[91m  ERROR[0m
 test_first_of_month_after_10am (__main__.TestTimingLogic.test_first_of_month_after_10am)
-1일 오전 10시 이후면 다음 달 1일 10:00 반환. ... ok
-[92m  PASS[0m
+1일 오전 10시 이후면 다음 달 1일 10:00 반환. ... ERROR
+[91m  ERROR[0m
 test_first_of_month_before_10am (__main__.TestTimingLogic.test_first_of_month_before_10am)
-1일 오전 10시 이전이면 오늘 10:00 반환. ... ok
-[92m  PASS[0m
+1일 오전 10시 이전이면 오늘 10:00 반환. ... ERROR
+[91m  ERROR[0m
 test_mid_month_returns_next_first (__main__.TestTimingLogic.test_mid_month_returns_next_first)
-월 중간이면 다음 달 1일 10:00 반환. ... ok
-[92m  PASS[0m
+월 중간이면 다음 달 1일 10:00 반환. ... ERROR
+[91m  ERROR[0m
 test_sleep_until_near_future (__main__.TestTimingLogic.test_sleep_until_near_future)
-0.1초 후 시각에 sleep_until 호출 시 ~0.1초 대기. ... ok
-[92m  PASS[0m
+0.1초 후 시각에 sleep_until 호출 시 ~0.1초 대기. ... ERROR
+[91m  ERROR[0m
 test_sleep_until_past_returns_immediately (__main__.TestTimingLogic.test_sleep_until_past_returns_immediately)
-과거 시각에 sleep_until 호출 시 즉시 반환. ... ok
-[92m  PASS[0m
-test_init (__main__.TestTelegramNotifier.test_init) ... ok
-[92m  PASS[0m
+과거 시각에 sleep_until 호출 시 즉시 반환. ... ERROR
+[91m  ERROR[0m
+test_init (__main__.TestTelegramNotifier.test_init) ... ERROR
+[91m  ERROR[0m
 test_notify_failure_with_screenshot_calls_send_photo (__main__.TestTelegramNotifier.test_notify_failure_with_screenshot_calls_send_photo)
-스크린샷 경로 있으면 send_photo 사용. ... ok
-[92m  PASS[0m
+스크린샷 경로 있으면 send_photo 사용. ... ERROR
+[91m  ERROR[0m
 test_notify_failure_without_screenshot (__main__.TestTelegramNotifier.test_notify_failure_without_screenshot)
-스크린샷 없이 notify_failure 호출 시 send_message 사용. ... ok
-[92m  PASS[0m
+스크린샷 없이 notify_failure 호출 시 send_message 사용. ... ERROR
+[91m  ERROR[0m
 test_notify_success_calls_send_message (__main__.TestTelegramNotifier.test_notify_success_calls_send_message)
-notify_success가 send_message를 호출하는지 확인. ... ok
-[92m  PASS[0m
+notify_success가 send_message를 호출하는지 확인. ... ERROR
+[91m  ERROR[0m
 test_send_message_success (__main__.TestTelegramNotifier.test_send_message_success)
-send_message가 True를 반환하고 예외 없이 종료. ... ok
-[92m  PASS[0m
+send_message가 True를 반환하고 예외 없이 종료. ... ERROR
+[91m  ERROR[0m
 test_send_message_telegram_error_returns_false (__main__.TestTelegramNotifier.test_send_message_telegram_error_returns_false)
-TelegramError 발생 시 예외 없이 False 반환. ... ok
-[92m  PASS[0m
+TelegramError 발생 시 예외 없이 False 반환. ... ERROR
+[91m  ERROR[0m
 test_send_photo_fallback_when_file_missing (__main__.TestTelegramNotifier.test_send_photo_fallback_when_file_missing)
-스크린샷 파일 없으면 send_message로 폴백. ... ok
-[92m  PASS[0m
+스크린샷 파일 없으면 send_message로 폴백. ... ERROR
+[91m  ERROR[0m
 test_bot_has_required_methods (__main__.TestReservationBotStructure.test_bot_has_required_methods)
 ReservationBot에 필수 메서드가 정의되어 있어야 함. ... ok
 [92m  PASS[0m
@@ -74,13 +86,885 @@ SUCCESS/FAILURE 키워드 리스트가 비어있지 않아야 함. ... ok
 test_selectors_all_keys_present (__main__.TestReservationBotStructure.test_selectors_all_keys_present)
 SELECTORS 딕셔너리에 필수 키가 모두 있어야 함. ... ok
 [92m  PASS[0m
+test_timeout_constants_are_positive (__main__.TestReservationBotStructure.test_timeout_constants_are_positive)
+타임아웃 상수가 양수여야 함. ... ok
+[92m  PASS[0m
 test_urls_are_https (__main__.TestReservationBotStructure.test_urls_are_https)
 LOGIN_URL, RESERVATION_URL이 HTTPS이어야 함. ... ok
 [92m  PASS[0m
 
+======================================================================
+ERROR: test_import_main (__main__.TestImports.test_import_main)
 ----------------------------------------------------------------------
-Ran 27 tests in 2.258s
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 60, in test_import_main
+    from src import main
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
 
-OK
+======================================================================
+ERROR: test_import_notifier (__main__.TestImports.test_import_notifier)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 49, in test_import_notifier
+    from src import notifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_december_rolls_to_january (__main__.TestTimingLogic.test_december_rolls_to_january)
+12월이면 다음 해 1월 1일 10:00 반환.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 243, in test_december_rolls_to_january
+    from src.main import next_reservation_open
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_first_of_month_after_10am (__main__.TestTimingLogic.test_first_of_month_after_10am)
+1일 오전 10시 이후면 다음 달 1일 10:00 반환.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 220, in test_first_of_month_after_10am
+    from src.main import next_reservation_open
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_first_of_month_before_10am (__main__.TestTimingLogic.test_first_of_month_before_10am)
+1일 오전 10시 이전이면 오늘 10:00 반환.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 206, in test_first_of_month_before_10am
+    from src.main import next_reservation_open
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_mid_month_returns_next_first (__main__.TestTimingLogic.test_mid_month_returns_next_first)
+월 중간이면 다음 달 1일 10:00 반환.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 232, in test_mid_month_returns_next_first
+    from src.main import next_reservation_open
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_sleep_until_near_future (__main__.TestTimingLogic.test_sleep_until_near_future)
+0.1초 후 시각에 sleep_until 호출 시 ~0.1초 대기.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 261, in test_sleep_until_near_future
+    from src.main import sleep_until
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_sleep_until_past_returns_immediately (__main__.TestTimingLogic.test_sleep_until_past_returns_immediately)
+과거 시각에 sleep_until 호출 시 즉시 반환.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 255, in test_sleep_until_past_returns_immediately
+    from src.main import sleep_until
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_init (__main__.TestTelegramNotifier.test_init)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 282, in test_init
+    n = self._make_notifier()
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 278, in _make_notifier
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_notify_failure_with_screenshot_calls_send_photo (__main__.TestTelegramNotifier.test_notify_failure_with_screenshot_calls_send_photo)
+스크린샷 경로 있으면 send_photo 사용.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 350, in test_notify_failure_with_screenshot_calls_send_photo
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_notify_failure_without_screenshot (__main__.TestTelegramNotifier.test_notify_failure_without_screenshot)
+스크린샷 없이 notify_failure 호출 시 send_message 사용.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 341, in test_notify_failure_without_screenshot
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_notify_success_calls_send_message (__main__.TestTelegramNotifier.test_notify_success_calls_send_message)
+notify_success가 send_message를 호출하는지 확인.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 330, in test_notify_success_calls_send_message
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_send_message_success (__main__.TestTelegramNotifier.test_send_message_success)
+send_message가 True를 반환하고 예외 없이 종료.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 290, in test_send_message_success
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_send_message_telegram_error_returns_false (__main__.TestTelegramNotifier.test_send_message_telegram_error_returns_false)
+TelegramError 발생 시 예외 없이 False 반환.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 302, in test_send_message_telegram_error_returns_false
+    from telegram.error import TelegramError
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+======================================================================
+ERROR: test_send_photo_fallback_when_file_missing (__main__.TestTelegramNotifier.test_send_photo_fallback_when_file_missing)
+스크린샷 파일 없으면 send_message로 폴백.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 315, in test_send_photo_fallback_when_file_missing
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+----------------------------------------------------------------------
+Ran 32 tests in 0.388s
+
+FAILED (errors=15)
 ============================================================
-합계: 27  통과: 27  실패: 0  오류: 0
+합계: 32  통과: 17  실패: 0  오류: 15
+
+실패/오류 상세:
+
+▸ test_import_main (__main__.TestImports.test_import_main)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 60, in test_import_main
+    from src import main
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_import_notifier (__main__.TestImports.test_import_notifier)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 49, in test_import_notifier
+    from src import notifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_december_rolls_to_january (__main__.TestTimingLogic.test_december_rolls_to_january)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 243, in test_december_rolls_to_january
+    from src.main import next_reservation_open
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_first_of_month_after_10am (__main__.TestTimingLogic.test_first_of_month_after_10am)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 220, in test_first_of_month_after_10am
+    from src.main import next_reservation_open
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_first_of_month_before_10am (__main__.TestTimingLogic.test_first_of_month_before_10am)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 206, in test_first_of_month_before_10am
+    from src.main import next_reservation_open
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_mid_month_returns_next_first (__main__.TestTimingLogic.test_mid_month_returns_next_first)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 232, in test_mid_month_returns_next_first
+    from src.main import next_reservation_open
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_sleep_until_near_future (__main__.TestTimingLogic.test_sleep_until_near_future)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 261, in test_sleep_until_near_future
+    from src.main import sleep_until
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_sleep_until_past_returns_immediately (__main__.TestTimingLogic.test_sleep_until_past_returns_immediately)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 255, in test_sleep_until_past_returns_immediately
+    from src.main import sleep_until
+  File "/home/user/ClaudeTesting/src/main.py", line 27, in <module>
+    from .notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_init (__main__.TestTelegramNotifier.test_init)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 282, in test_init
+    n = self._make_notifier()
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 278, in _make_notifier
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_notify_failure_with_screenshot_calls_send_photo (__main__.TestTelegramNotifier.test_notify_failure_with_screenshot_calls_send_photo)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 350, in test_notify_failure_with_screenshot_calls_send_photo
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_notify_failure_without_screenshot (__main__.TestTelegramNotifier.test_notify_failure_without_screenshot)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 341, in test_notify_failure_without_screenshot
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_notify_success_calls_send_message (__main__.TestTelegramNotifier.test_notify_success_calls_send_message)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 330, in test_notify_success_calls_send_message
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_send_message_success (__main__.TestTelegramNotifier.test_send_message_success)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 290, in test_send_message_success
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_send_message_telegram_error_returns_false (__main__.TestTelegramNotifier.test_send_message_telegram_error_returns_false)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 302, in test_send_message_telegram_error_returns_false
+    from telegram.error import TelegramError
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
+
+▸ test_send_photo_fallback_when_file_missing (__main__.TestTelegramNotifier.test_send_photo_fallback_when_file_missing)
+Traceback (most recent call last):
+  File "/home/user/ClaudeTesting/tests/test_bot.py", line 315, in test_send_photo_fallback_when_file_missing
+    from src.notifier import TelegramNotifier
+  File "/home/user/ClaudeTesting/src/notifier.py", line 4, in <module>
+    from telegram import Bot
+  File "/usr/local/lib/python3.11/dist-packages/telegram/__init__.py", line 326, in <module>
+    from telegram._payment.stars.startransactions import StarTransaction, StarTransactions
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/startransactions.py", line 31, in <module>
+    from .transactionpartner import TransactionPartner
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_payment/stars/transactionpartner.py", line 27, in <module>
+    from telegram._gifts import Gift
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_gifts.py", line 26, in <module>
+    from telegram._files.sticker import Sticker
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/sticker.py", line 26, in <module>
+    from telegram._files.file import File
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_files/file.py", line 27, in <module>
+    from telegram._passport.credentials import decrypt
+  File "/usr/local/lib/python3.11/dist-packages/telegram/_passport/credentials.py", line 27, in <module>
+    from cryptography.hazmat.primitives.asymmetric.padding import MGF1, OAEP
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/asymmetric/padding.py", line 10, in <module>
+    from cryptography.hazmat.primitives import hashes
+  File "/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/hashes.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+pyo3_runtime.PanicException: Python API call failed
+
