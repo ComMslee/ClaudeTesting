@@ -143,6 +143,45 @@ class TestConfig(unittest.TestCase):
                     with self.assertRaises(ValueError):
                         load_config()
 
+    def test_invalid_camping_date_format_raises(self):
+        """CAMPING_DATE가 YYYY-MM-DD 형식이 아니면 ValueError 발생."""
+        from src.config import load_config
+        invalid_dates = ["03-01-2026", "2026/03/01", "20260301", "invalid"]
+        for bad_date in invalid_dates:
+            env = {**self.VALID_ENV, "CAMPING_DATE": bad_date}
+            with self.subTest(date=bad_date):
+                with patch.dict(os.environ, env, clear=False):
+                    with self.assertRaises(ValueError):
+                        load_config()
+
+    def test_valid_camping_date_accepted(self):
+        """유효한 YYYY-MM-DD 형식은 정상 통과."""
+        from src.config import load_config
+        env = {**self.VALID_ENV, "CAMPING_DATE": "2026-03-01"}
+        with patch.dict(os.environ, env, clear=False):
+            cfg = load_config()
+        self.assertEqual(cfg.camping_date, "2026-03-01")
+
+    def test_attendee_count_out_of_range_raises(self):
+        """ATTENDEE_COUNT가 1~10 범위 밖이면 ValueError 발생."""
+        from src.config import load_config
+        for bad_count in ["0", "11", "999", "-1"]:
+            env = {**self.VALID_ENV, "ATTENDEE_COUNT": bad_count}
+            with self.subTest(count=bad_count):
+                with patch.dict(os.environ, env, clear=False):
+                    with self.assertRaises(ValueError):
+                        load_config()
+
+    def test_attendee_count_in_range_accepted(self):
+        """ATTENDEE_COUNT가 1~10 범위 내이면 정상 통과."""
+        from src.config import load_config
+        for valid_count in ["1", "5", "10"]:
+            env = {**self.VALID_ENV, "ATTENDEE_COUNT": valid_count}
+            with self.subTest(count=valid_count):
+                with patch.dict(os.environ, env, clear=False):
+                    cfg = load_config()
+                self.assertEqual(cfg.attendee_count, int(valid_count))
+
     def test_config_is_immutable(self):
         """frozen=True 데이터클래스이므로 속성 변경 불가."""
         from src.config import load_config
@@ -359,10 +398,31 @@ class TestReservationBotStructure(unittest.TestCase):
         self.assertGreater(len(SUCCESS_KEYWORDS), 0)
         self.assertGreater(len(FAILURE_KEYWORDS), 0)
 
+    def test_timeout_constants_are_positive(self):
+        """타임아웃 상수가 양수여야 함."""
+        from src.reservation import (
+            PAGE_LOAD_TIMEOUT_MS, NETWORK_IDLE_TIMEOUT_MS,
+            RELOAD_TIMEOUT_MS, RELOAD_IDLE_TIMEOUT_MS,
+            SUBMIT_IDLE_TIMEOUT_MS, SLOW_MO_MS,
+        )
+        for name, val in [
+            ("PAGE_LOAD_TIMEOUT_MS", PAGE_LOAD_TIMEOUT_MS),
+            ("NETWORK_IDLE_TIMEOUT_MS", NETWORK_IDLE_TIMEOUT_MS),
+            ("RELOAD_TIMEOUT_MS", RELOAD_TIMEOUT_MS),
+            ("RELOAD_IDLE_TIMEOUT_MS", RELOAD_IDLE_TIMEOUT_MS),
+            ("SUBMIT_IDLE_TIMEOUT_MS", SUBMIT_IDLE_TIMEOUT_MS),
+            ("SLOW_MO_MS", SLOW_MO_MS),
+        ]:
+            with self.subTest(constant=name):
+                self.assertGreater(val, 0, f"{name} must be positive")
+
     def test_bot_has_required_methods(self):
         """ReservationBot에 필수 메서드가 정의되어 있어야 함."""
         from src.reservation import ReservationBot
-        for method in ["login", "pre_position", "attempt_reservation", "take_screenshot"]:
+        for method in [
+            "login", "pre_position", "attempt_reservation", "take_screenshot",
+            "_fill_form", "_validate_dry_run", "_detect_result",
+        ]:
             with self.subTest(method=method):
                 self.assertTrue(hasattr(ReservationBot, method))
 
